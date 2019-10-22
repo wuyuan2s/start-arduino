@@ -1,0 +1,39 @@
+#include <TM1637.h>
+
+TM1637 tm1637(3,2);
+
+void setup(){
+   tm1637.init();
+
+  tm1637.set(7);
+}
+
+void loop(){
+  int8_t NumTab[]={0,1,2,3,4,5};
+  int8_t ListDisp[4];
+   int8_t run=1;
+  unsigned char i = 0;
+    unsigned char count = 0;
+  delay(150); while(run)
+  {
+  i = count;
+  count++;
+  if(sizeof(NumTab)<5)
+  run=0;
+  if(count == sizeof(NumTab))
+  count = 0;
+   for(unsigned char BitSelect = 0;BitSelect <  sizeof(NumTab);BitSelect ++)
+  {
+  ListDisp[BitSelect] = NumTab[i];
+   i++;
+  if(i == sizeof(NumTab))
+   i = 0;
+  }
+  for(unsigned char k = 0;k <sizeof(NumTab);k ++)
+  {
+  tm1637.display(k,ListDisp[k]);
+  };
+  delay(300);
+  }
+
+}
